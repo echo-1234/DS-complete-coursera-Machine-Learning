@@ -35,4 +35,3 @@ ex2.mlx
 - `fminunc` function
 - plot decision boundary (have not understand the section on more than 2 features)
 - regularization cost function
-
