@@ -5,18 +5,24 @@ function plotDecisionBoundary(theta, X, y)
 %   positive examples and o for the negative examples. X is assumed to be 
 %   a either 
 %   1) Mx3 matrix, where the first column is an all-ones column for the 
-%      intercept.
+%      intercept.(only two variables)
 %   2) MxN, N>3 matrix, where the first column is all-ones
+
 
 % Plot Data
 plotData(X(:,2:3), y);
 hold on
 
-if size(X, 2) <= 3
+%decision boundary is when theta' * X = 0 for logistic function
+
+if size(X, 2) <= 3 
     % Only need 2 points to define a line, so choose two endpoints
-    plot_x = [min(X(:,2))-2,  max(X(:,2))+2];
+    % find from the first varible 
+    plot_x = [min(X(:,2))-2,  max(X(:,2))+2]; 
 
     % Calculate the decision boundary line
+    % calculate the corresponding value of the second variable according 
+    % to criteria of theta(1)+theta(2)* X(i,2) + theta(3)* X(i,3) = 0;
     plot_y = (-1./theta(3)).*(theta(2).*plot_x + theta(1));
 
     % Plot, and adjust axes for better viewing

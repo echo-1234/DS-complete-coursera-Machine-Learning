@@ -12,12 +12,14 @@ figure; hold on;
 %               examples and 'ko' for the negative examples.
 %
 
-
-
-
-
-
-
+% === Save the indices of the respective results into the vector 
+%  I = find(X) returns the linear indices corresponding to 
+%  the nonzero entries of the array X.  X may be a logical expression.
+pos = find (y == 1); 
+neg = find (y == 0);
+% Plot the set seperate into the plot
+plot (X(pos,1), X(pos,2), 'k+', 'LineWidth', 2, 'MarkerSize', 7);
+plot (X(neg,1), X(neg,2), 'ko', 'MarkerFaceColor', 'y', 'MarkerSize', 7);
 
 
 % =========================================================================
