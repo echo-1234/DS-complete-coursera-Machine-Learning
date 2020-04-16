@@ -7,17 +7,19 @@ __Platform: Matlab__
 
 Machine Learning - Coursera.md: personal notes from the course
 
+octave-matlab.md: some commands in matlab, as reference.
 
 
-## exercise list and details
 
-### ex1:  linear regression
+## Exercise list and details
+
+### ex1:  Linear regression
 
 ex1.mlx
 
 - uni-variable and multi-variables linear regression cost function
 - gradient descent
-- feature normlization
+- feature normalization
 - Normal equation
 
 ex1_companion.mlx
@@ -27,7 +29,12 @@ ex1_companion.mlx
 - `fitlm` for linear regression, and `predict`
 - "Regression Learner App"
 
-### ex2: Logistic classification
+__Lecture Notes__
+
+- Lecture 2
+- Lecture 4
+
+### ex2:  Logistic classification
 
 ex2.mlx
 
@@ -35,3 +42,14 @@ ex2.mlx
 - `fminunc` function
 - plot decision boundary (have not understand the section on more than 2 features)
 - regularization cost function
+
+ex2_companion.mlx
+
+- `fitglm` for generalized linear model
+- Classification Learner App
+- `fitclinear` with regularization type 'ridge'  
+
+__Lecture Notes__
+
+- Lecture 6
+- Lecture 7

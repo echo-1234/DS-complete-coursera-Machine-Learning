@@ -1,5 +1,7 @@
 # Machine Learning - Coursera
 
+> Lecture 1
+
 Supervised learning, the answer is known
 
 Regression problem - continuous value
@@ -10,6 +12,10 @@ Unsupervised learning, ask the algorithm to find a pattern/structure in a set of
 
 ## Part I.  Linear regression
 
+>  Lecture 2
+>
+>  Lecture 4 
+
 ### A. Hypothesis
 
 $$
@@ -19,6 +25,8 @@ h_\theta(x) & = \theta_0 + \theta_1x_1 + \cdots + \theta_nx_n\\
             & = \theta^Tx
 \end {align}
 $$
+
+$x_0$ is the intercept term, filled with 1. 
 
 ### B. The Cost function
 
@@ -68,15 +76,27 @@ Features and polynomial regression: use existing parameter to construct addition
 
 ### C. Normal equation
 
+__Design Matrix X__
+$$
+X = 
+\begin{bmatrix} (x^{(1)})^T\\
+(x^{(2)})^T\\
+\vdots \\
+(x^{(m)})^T\\
+\end{bmatrix}\\
+\text {X is a } m\times(n+1) \text{ matrix} \\
+\text {m sets of samples, with n features}
+$$
+__Normal Equation__
 $$
 \theta = (X^TX)^{-1}X^Ty
 $$
 
-Derived from setting the derivative of the cost function to 0.
+- Derived from setting the derivative of the cost function to 0.
 
-involve solving matrix inverse, not suitable for too many features n. 
+- involve solving matrix inverse, not suitable for too many features n. 
 
-Feature scaling is not needed
+- Feature scaling is not needed
 
 | Gradient Descent      | Normal Equation                     |
 | --------------------- | ----------------------------------- |
@@ -91,7 +111,7 @@ __Non-invertible cause__
 
 ## Part *A. Matlab Programming
 
-
+> Lecture 5
 
 ## Part *B: Vectorization
 
@@ -107,6 +127,8 @@ __Non-invertible cause__
 - partial access of the matrix
 
 ## Part II. Classification problem
+
+> Lecture 6 
 
 eg. spam and not spam etc.
 
@@ -234,6 +256,8 @@ prediction=max_i(h^{(i)}_θ(x))
 $$
 
 ## Part III: Over-fitting and regularization
+
+> Lecture 7
 
 ### A. Over-fitting 
 
