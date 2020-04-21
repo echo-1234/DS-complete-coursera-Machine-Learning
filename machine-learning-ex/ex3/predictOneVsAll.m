@@ -31,9 +31,12 @@ X = [ones(m, 1) X];
 %       
 
 
+[~ , p] = max ( sigmoid ( X * all_theta' ) , [] , 2 );
+% sigmoid ( X * all_theta' ) generates a no._of_example*10 matrix of 
+% probability for ith example in jth class
 
-
-
+% M = max(X,[],DIM) or [M,I] = max(X,[],DIM) operates along the 
+% dimension DIM.
 
 
 % =========================================================================

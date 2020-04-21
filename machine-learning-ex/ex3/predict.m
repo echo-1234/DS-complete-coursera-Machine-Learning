@@ -21,12 +21,15 @@ p = zeros(size(X, 1), 1);
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+X = [ones(m, 1) X];
+z2 = X * Theta1';
+a2 = sigmoid(z2); %compute second layer (no._of_example*25)
 
+a2 = [ones(m, 1) a2];
+z3 = a2 * Theta2';
+h = sigmoid(z3); %compute last layer (no._of_example*10) of probabilities for each class
 
-
-
-
-
+[~ , p] = max(h , [] , 2);
 
 
 % =========================================================================

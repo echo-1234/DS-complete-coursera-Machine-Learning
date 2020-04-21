@@ -101,7 +101,7 @@ $$
 | Gradient Descent      | Normal Equation                     |
 | --------------------- | ----------------------------------- |
 | Need to choose alpha  |                                     |
-| iterations            |                                     |
+| Need iterations       |                                     |
 | $O(kn^2)$             | $O (n^3)$ need to calculate inverse |
 | work well for large n | slow if very large                  |
 __Non-invertible cause__
@@ -255,7 +255,7 @@ h^{(n)}_θ(x)=P(y=n|x;θ)\\
 prediction=max_i(h^{(i)}_θ(x))
 $$
 
-## Part III: Over-fitting and regularization
+## Part C: Over-fitting and regularization
 
 > Lecture 7
 
@@ -323,4 +323,217 @@ Repeat \{ \\
 \}\end {align}
 $$
 
- 
+ ## Part III: Non-linear Hypothesis and Neural Networks
+
+> Lecture 8
+
+### A. Neural Network Model Representation
+
+__1. Neuron model.__
+
+>  eg. neuron with signoid (logistic) activation function
+
+$$
+\begin{bmatrix} x_0 \\ x_1\\ x_2\\ x_3 \end{bmatrix} \to \begin{bmatrix} a_1^{(2)} \\ a_2^{(2)}\\ a_3^{(2)}\end{bmatrix} \to h_\theta(x)
+$$
+
+
+
+input layer-> hidden layer(s) -> output layer
+
+$x_0$: bias unit
+
+$a_j^{(i)}$ = "activation" of unit i in layer j
+
+$\Theta^{(j)}$ = matrix of "weights" (or "parameter") controlling function mapping from layer j to layer j+1, 
+
+- dimension: If network has $s_j$ units in layer *j* and $s_{j+1}$ units in layer *j*+1, then $Θ^{(j)}$ will be of dimension $ s_{j+1} \times (s_j+1) $
+- index of element (target-source)
+
+__2. Vectorized implementation__
+
+Forward propagation (General)
+$$
+\begin{align}
+&\text{Compute layer j}\\
+& z^{(j)} = \Theta^{(j-1)}a^{(j-1)} \quad \text{weighted sum}\\
+& a^{(j)} = g(z^{(j)})\\
+\\
+&\text{Compute next (output) layer}\\
+& Add \quad a_0^{(j)} = 1\\
+& z^{(j+1)} = \Theta^{(j)}a^{(j)}\\
+& h_\Theta(x) = a^{(j+1)} = g(z^{(j+1)})
+\end{align}
+$$
+__3. Neural Architectures__
+
+> How the neurons are connected
+
+__4. Example: Non-linear classification example: XOR/XNOR__
+
+__Intuition I__
+
+![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/f_ueJLGnEea3qApInhZCFg_a5ff8edc62c9a09900eae075e8502e34_Screenshot-2016-11-23-10.03.48.png?expiry=1587254400000&hmac=ocKv6teYgi7EpY4t3ErYTX4F9LrcDcwXlMTZMxhlTls)
+
+![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/wMOiMrGnEeajLxLfjQiSjg_bbbdad80f5c95068bde7c9134babdd77_Screenshot-2016-11-23-10.07.24.png?expiry=1587254400000&hmac=fB9YMuZHp9TmzojZkyV2u_oACTX3h8wn77YBtQnmPU8)
+
+__Intuition II__
+
+> XOR: true only if a or b true
+>
+> XNOR == NOT( a XOR b)![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/rag_zbGqEeaSmhJaoV5QvA_52c04a987dcb692da8979a2198f3d8d7_Screenshot-2016-11-23-10.28.41.png?expiry=1587254400000&hmac=BYH98BIpn3yWNAmZ7crHSefOMTRBQWdDIAhnTgViQh0)
+
+__5. Multiclass Classification: One-vs-all__
+
+![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/9Aeo6bGtEea4MxKdJPaTxA_4febc7ec9ac9dd0e4309bd1778171d36_Screenshot-2016-11-23-10.49.05.png?expiry=1587254400000&hmac=StQX95SZfgmjxaw7MWux087F5ob4p_GbUXNDvp0PWNs)
+
+multiple output units, represent y as vectors.
+$$
+y^{(i)} = 
+\begin{bmatrix} 1\\ 0\\ 0\\ 0\\ \end{bmatrix}
+\begin{bmatrix} 0\\ 1\\ 0\\ 0\\ \end{bmatrix}
+\begin{bmatrix} 0\\ 0\\ 1\\ 0\\ \end{bmatrix}
+\begin{bmatrix} 0\\ 0\\ 0\\ 1\\ \end{bmatrix}
+$$
+
+### B. NN cost function and back propagation
+
+__1. Cost function__
+$$
+h_\Theta(x) \in R^K  \quad (h_\Theta(x))_i=i^{th} output \\
+\begin{align}
+J(\Theta) 
+&= \frac{1}{m}\sum_{(i=1)}^m\sum_{(k=1)}^K [y_k^{(i)}\log{(h_\Theta(x^{(i)}))}_k
++(1-y_k^{(i)})\log{(1-(h_\Theta(x^{(i)}))_k)}]\\
+& +\frac{\lambda}{2m}\sum_{(l=1)}^{L-1}\sum_{(i=1)}^{s_l}\sum_{(j=1)}^{s_{l+1}}(\Theta^{(l)}_{ij})^2
+\end{align}
+$$
+
+- L = total number of layers
+
+- $s_l$ = number of units in layer l (exclude bias unit)
+
+- K = number of output units/classes
+- the double sum simply adds up the logistic regression costs calculated for each cell in the output layer
+- the triple sum simply adds up the squares of all the individual Θs in the entire network.
+- the i in the triple sum does **not** refer to training example i. 
+
+__2. Backpropagation Algorithm__
+$$
+\delta_j^{(4)} = a_j^{(4)}-y_j\\
+\delta_j^{(3)} =(\Theta^{(3)})^T\delta^{(4)}.*g'(z^{(3)})\\
+\delta_j^{(2)} =(\Theta^{(2)})^T\delta^{(3)}.*g'(z^{(2)})\\
+$$
+$\delta_j^{(l)}$ = "error" of node j in layer l. = $\frac{\partial}{\partial z_j^{l}}cost(i)$
+
+The partial derivative of j(\Theta) is needed for minimum cost function.
+$$
+\frac{∂}{∂Θ^{(l)}_{i,j}}J(Θ)
+$$
+Given training set ${(x^{(1)},y^{(1)})⋯(x^{(m)},y^{(m)})}$
+
+- Set $\Delta^{(l)}_{i,j}$:= 0 for all (l,i,j), (hence you end up having a matrix full of zeros)
+
+For training example t =1 to m:
+
+1. Set $a^{(1)} := x^{(t)}$
+2. Perform __forward propagation__ to compute $a^{(l)}$ for l=2,3,…,L
+
+3. Using $y^{(t)}$, compute $\delta^{(L)} = a^{(L)} - y^{(t)}$
+
+4. Compute $\delta^{(L-1)}, \delta^{(L-2)},\dots,\delta^{(2)}$
+
+   > The delta values of layer l are calculated by multiplying the delta values in the next layer with the theta matrix of layer l.
+
+   $$
+   δ^{(l)}=((Θ^{(l)})^Tδ^{(l+1)}) .∗ a^{(l)} .∗ (1−a^{(l)})\\
+   \text{where } g'(z^{(l)}) = a^{(l)}.*(1-a^{(l)})\\
+   $$
+
+5. $Δ_{i,j}^l:=Δ_{i,j}^l+a_{j}^l\delta_{i}^{(l+1)}$ or with vectorization, $\Delta^{(l)} := \Delta^{(l)} + \delta^{(l+1)}(a^{(l)})^T$
+   $$
+   D^{(l)}_{i,j}:=\frac{1}{m}(Δ^{(l)}_{i,j}+λΘ^{(l)}_{i,j}), \; if \;j≠0\\
+   D^{(l)}_{i,j}:=\frac{1}{m}(Δ^{(l)}_{i,j}), \; if \; j=0
+$$
+   
+> The capital-delta matrix D is used as an "accumulator" to add up our values as we go along and eventually compute our partial derivative. 
+   
+$$
+   \frac{∂}{∂Θ^{(l)}_{i,j}}J(Θ) = D_{i,j}^{(l)}
+   $$
+
+__Intuitions__
+
+back of forward propagation
+
+![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/qc309rdcEea4MxKdJPaTxA_324034f1a3c3a3be8e7c6cfca90d3445_fixx.png?expiry=1587513600000&hmac=NSYzEDGr7QqumIljqQNvBP2gO_6B-NgOvifQN4AORTQ)
+
+### C. Implementation of BackPropagation
+
+__1. Unrolling (matrices and vector representation)__ 
+
+"unroll" matrices into one big vector
+
+```matlab
+thetaVector = [ Theta1(:); Theta2(:); Theta3(:); ]
+deltaVector = [ D1(:); D2(:); D3(:) ]
+```
+
+`reshape` to get back to matrices
+
+```matlab
+Theta1 = reshape(thetaVector(1:110),10,11)
+Theta2 = reshape(thetaVector(111:220),10,11)
+Theta3 = reshape(thetaVector(221:231),1,11)
+```
+
+![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/kdK7ubT2EeajLxLfjQiSjg_d35545b8d6b6940e8577b5a8d75c8657_Screenshot-2016-11-27-15.09.24.png?expiry=1587600000000&hmac=_6DASE7hth0UWnd3uS62VzxP0R8nOuRj_B4qENlvQV4)
+
+__2. Gradient Checking__
+$$
+\frac{∂}{∂Θ}J(Θ)≈\frac{J(Θ+ϵ)−J(Θ−ϵ)}{2ϵ}  \\
+\frac{∂}{∂Θ_j}J(Θ)≈\frac{J(\Theta_1,\dots,Θ_j+ϵ,\dots,Θ_n)−J(\Theta_1,\dots,Θ_j-ϵ,\dots,Θ_n)}{2ϵ}
+$$
+
+- two sided is slightly more accurate than one sided
+- \epsilon recommended to use ~10^-4
+
+codes:
+
+```matlab
+epsilon = 1e-4;
+for i = 1:n,
+  thetaPlus = theta;
+  thetaPlus(i) += epsilon;
+  thetaMinus = theta;
+  thetaMinus(i) -= epsilon;
+  gradApprox(i) = (J(thetaPlus) - J(thetaMinus))/(2*epsilon)
+end;
+```
+
+- Once you have verified **once** that your backpropagation algorithm is correct, you don't need to compute gradApprox again. The code to compute gradApprox can be very slow.
+
+__3. Random initialization__
+
+> Initializing all theta weights to zero does not work with neural networks. When we backpropagate, all nodes will update to the same value repeatedly. problem of symmetric weights.
+
+ __Symmetry breaking__
+
+```matlab
+If the dimensions of Theta1 is 10x11, Theta2 is 10x11 and Theta3 is 1x11.
+
+Theta1 = rand(10,11) * (2 * INIT_EPSILON) - INIT_EPSILON;
+Theta2 = rand(10,11) * (2 * INIT_EPSILON) - INIT_EPSILON;
+Theta3 = rand(1,11) * (2 * INIT_EPSILON) - INIT_EPSILON;
+```
+
+- `rand(10,11)` random 10 *11 matrix. rand(x,y) is just a function in octave that will initialize a matrix of random real numbers between 0 and 1.
+
+__4.Putting it together__
+
+   
+
+
+
+## Questions
+

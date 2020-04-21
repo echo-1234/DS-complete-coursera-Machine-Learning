@@ -53,3 +53,25 @@ __Lecture Notes__
 
 - Lecture 6
 - Lecture 7
+
+### ex3: Multiclass classification with neural networks
+
+ex3.mlx
+
+- representation of image with grayscale intensity
+- multi-class using logistic function to generate multiple classifiers (input -> output), and prediction
+- neural network: forward propagation prediction using trained weights. 
+
+ex3_companion.mlx
+
+- `fitcecoc` for one-vs-all classification
+- train neural network structure //The file used in this section have problem, cannot use. 
+
+__Lecture Note__
+
+- Lecture 8
+
+### ex4: 
+
+
+
