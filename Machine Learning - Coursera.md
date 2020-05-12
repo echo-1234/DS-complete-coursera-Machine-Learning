@@ -326,6 +326,8 @@ $$
  ## Part III: Non-linear Hypothesis and Neural Networks
 
 > Lecture 8
+>
+> Lecture 9
 
 ### A. Neural Network Model Representation
 
@@ -426,7 +428,7 @@ $$
 $$
 $\delta_j^{(l)}$ = "error" of node j in layer l. = $\frac{\partial}{\partial z_j^{l}}cost(i)$
 
-The partial derivative of j(\Theta) is needed for minimum cost function.
+The partial derivative of $ J(\Theta)$ is needed for minimum cost function.
 $$
 \frac{∂}{∂Θ^{(l)}_{i,j}}J(Θ)
 $$
@@ -451,24 +453,23 @@ For training example t =1 to m:
    $$
 
 5. $Δ_{i,j}^l:=Δ_{i,j}^l+a_{j}^l\delta_{i}^{(l+1)}$ or with vectorization, $\Delta^{(l)} := \Delta^{(l)} + \delta^{(l+1)}(a^{(l)})^T$
-   $$
-   D^{(l)}_{i,j}:=\frac{1}{m}(Δ^{(l)}_{i,j}+λΘ^{(l)}_{i,j}), \; if \;j≠0\\
+$$
+D^{(l)}_{i,j}:=\frac{1}{m}(Δ^{(l)}_{i,j}+λΘ^{(l)}_{i,j}), \; if \;j≠0\\
    D^{(l)}_{i,j}:=\frac{1}{m}(Δ^{(l)}_{i,j}), \; if \; j=0
 $$
-   
+
 > The capital-delta matrix D is used as an "accumulator" to add up our values as we go along and eventually compute our partial derivative. 
-   
+
 $$
    \frac{∂}{∂Θ^{(l)}_{i,j}}J(Θ) = D_{i,j}^{(l)}
-   $$
-
+$$
 __Intuitions__
 
 back of forward propagation
 
 ![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/qc309rdcEea4MxKdJPaTxA_324034f1a3c3a3be8e7c6cfca90d3445_fixx.png?expiry=1587513600000&hmac=NSYzEDGr7QqumIljqQNvBP2gO_6B-NgOvifQN4AORTQ)
 
-### C. Implementation of BackPropagation
+### C. Implementation of Back Propagation
 
 __1. Unrolling (matrices and vector representation)__ 
 
@@ -496,7 +497,7 @@ $$
 $$
 
 - two sided is slightly more accurate than one sided
-- \epsilon recommended to use ~10^-4
+- $\epsilon$ recommended to use $~10^{-4}$
 
 codes:
 
@@ -515,7 +516,7 @@ end;
 
 __3. Random initialization__
 
-> Initializing all theta weights to zero does not work with neural networks. When we backpropagate, all nodes will update to the same value repeatedly. problem of symmetric weights.
+> Initializing all theta weights to zero does not work with neural networks. When we back propagate, all nodes will update to the same value repeatedly. problem of symmetric weights.
 
  __Symmetry breaking__
 
@@ -531,7 +532,33 @@ Theta3 = rand(1,11) * (2 * INIT_EPSILON) - INIT_EPSILON;
 
 __4.Putting it together__
 
-   
+__a. Pick a network architecture__
+
+- input number: dimension feature
+- output: number of class
+- reasonable default: (1) 1 hidden layer (2) if more than 1, have same number of units in different layers
+
+__b. Training __
+
+(1) random initialize weights
+
+(2) forward prop to get $h_\theta(x^{(i)})$ for any $x^{(i)}$
+
+(3) code to compute cost function $J(\Theta)$
+
+(4) backprop to compute partial derivatives $\frac{\partial}{\partial\Theta^{(l)}_{jk}}$
+
+(5) gradient checking, then disable gc code
+
+(6) minimize $J(\Theta)$ (non-convex), unsing gradient descent or advanced optimization
+
+ ```
+for i = 1:m,
+   Perform forward propagation and backpropagation using example (x(i),y(i))
+   (Get activations a(l) and delta terms d(l) for l = 2,...,L
+ ```
+
+
 
 
 
