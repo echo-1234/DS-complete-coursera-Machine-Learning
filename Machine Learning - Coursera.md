@@ -329,7 +329,7 @@ $$
 >
 > Lecture 9
 
-### A. Neural Network Model Representation
+### A. Neural Network Model Representation and forward propagation
 
 __1. Neuron model.__
 
@@ -461,7 +461,7 @@ $$
 > The capital-delta matrix D is used as an "accumulator" to add up our values as we go along and eventually compute our partial derivative. 
 
 $$
-   \frac{∂}{∂Θ^{(l)}_{i,j}}J(Θ) = D_{i,j}^{(l)}
+\frac{∂}{∂Θ^{(l)}_{i,j}}J(Θ) = D_{i,j}^{(l)}
 $$
 __Intuitions__
 
@@ -486,6 +486,7 @@ deltaVector = [ D1(:); D2(:); D3(:) ]
 Theta1 = reshape(thetaVector(1:110),10,11)
 Theta2 = reshape(thetaVector(111:220),10,11)
 Theta3 = reshape(thetaVector(221:231),1,11)
+%  reshape(X,M,N) or reshape(X,[M,N]) returns the M-by-N matrix whose elements are taken columnwise from X.
 ```
 
 ![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/kdK7ubT2EeajLxLfjQiSjg_d35545b8d6b6940e8577b5a8d75c8657_Screenshot-2016-11-27-15.09.24.png?expiry=1587600000000&hmac=_6DASE7hth0UWnd3uS62VzxP0R8nOuRj_B4qENlvQV4)
@@ -496,6 +497,7 @@ $$
 \frac{∂}{∂Θ_j}J(Θ)≈\frac{J(\Theta_1,\dots,Θ_j+ϵ,\dots,Θ_n)−J(\Theta_1,\dots,Θ_j-ϵ,\dots,Θ_n)}{2ϵ}
 $$
 
+- this compares the calculated cost function gradient with an infinitesimally approximated gradient 
 - two sided is slightly more accurate than one sided
 - $\epsilon$ recommended to use $~10^{-4}$
 
@@ -512,7 +514,7 @@ for i = 1:n,
 end;
 ```
 
-- Once you have verified **once** that your backpropagation algorithm is correct, you don't need to compute gradApprox again. The code to compute gradApprox can be very slow.
+- Once you have verified **once** that your backpropagation algorithm is correct, you don't need to compute gradApprox again. The code to compute gradApprox can be very slow (calculating all costs).
 
 __3. Random initialization__
 
@@ -529,6 +531,7 @@ Theta3 = rand(1,11) * (2 * INIT_EPSILON) - INIT_EPSILON;
 ```
 
 - `rand(10,11)` random 10 *11 matrix. rand(x,y) is just a function in octave that will initialize a matrix of random real numbers between 0 and 1.
+- *One effective strategy for choosing  is to base it on the number of units in the network. A good choice of $\epsilon_{init}$ is  $\epsilon_{init}=\frac{\sqrt{6}}{\sqrt{L_{in}+L_{out}}}$where  $L_{in}=s_l, L_{out}=s_{l+1}+1$ are the number of units in the layers adjacent to $\Theta^{(l)}$ .
 
 __4.Putting it together__
 
@@ -548,9 +551,9 @@ __b. Training __
 
 (4) backprop to compute partial derivatives $\frac{\partial}{\partial\Theta^{(l)}_{jk}}$
 
-(5) gradient checking, then disable gc code
+(5) gradient checking, then disable gradient check code
 
-(6) minimize $J(\Theta)$ (non-convex), unsing gradient descent or advanced optimization
+(6) minimize $J(\Theta)$ (non-convex), using gradient descent or advanced optimization
 
  ```
 for i = 1:m,
@@ -558,7 +561,49 @@ for i = 1:m,
    (Get activations a(l) and delta terms d(l) for l = 2,...,L
  ```
 
+### D. Programming exercise note
 
+**back propagation vectored implementation**
+
+https://www.coursera.org/learn/machine-learning/discussions/all/threads/a8Kce_WxEeS16yIACyoj1Q
+
+Let:
+
+m = the number of training examples
+
+n = the number of training features, including the initial bias unit.
+
+h = the number of units in the hidden layer - NOT including the bias unit
+
+r = the number of output classifications
+
+\-------------------------------
+
+1: Perform forward propagation, see the separate tutorial if necessary.
+
+2: $\delta_3$ or d3 is the difference between a3 and the y_matrix. The dimensions are the same as both, (m x r).
+
+3: z2 comes from the forward propagation process - it's the product of a1 and Theta1, prior to applying the sigmoid() function. Dimensions are (m x n) \cdot⋅ (n x h) --> (m x h). In step 4, you're going to need the sigmoid gradient of z2. From ex4.pdf section 2.1, we know that if u = sigmoid(z2), then sigmoidGradient(z2) = u .* (1-u).
+
+4: $\delta_2$ or d2 is tricky. It uses the (:,2:end) columns of Theta2. d2 is the product of d3 and Theta2 (without the first column), then multiplied element-wise by the sigmoid gradient of z2. The size is (m x r) \cdot⋅ (r x h) --> (m x h). The size is the same as z2.
+
+Note: Excluding the first column of Theta2 is because the hidden layer bias unit has no connection to the input layer - so we do not use backpropagation for it. See Figure 3 in ex4.pdf for a diagram showing this.
+
+5: $\Delta_1$ or Delta1 is the product of d2 and a1. The size is (h x m) \cdot⋅ (m x n) --> (h x n)
+
+6: $\Delta_2$ or Delta2 is the product of d3 and a2. The size is (r x m) \cdot⋅ (m x [h+1]) --> (r x [h+1])
+
+7: Theta1_grad and Theta2_grad are the same size as their respective Deltas, just scaled by 1/m.
+
+
+
+
+
+## Personal side note
+
+- Machine learning involves the fitting of many functions, and the prediction based on the fitted parameters, where NN is only one of them
+- Classification: The  logistic regression relied on one vs all logic while NN output the probability for all classes.
+- The calculation of cost function and its gradient is used by optimization functions to train for the best parameters. (optimization include gradient descent and more advanced ones)
 
 
 

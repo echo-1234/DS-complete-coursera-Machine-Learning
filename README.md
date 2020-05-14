@@ -56,11 +56,12 @@ __Lecture Notes__
 
 ### ex3: Multiclass classification with neural networks
 
-ex3.mlx
+ex3.mlx (feedforward propagation)
 
 - representation of image with grayscale intensity
-- multi-class using logistic function to generate multiple classifiers (input -> output), and prediction
+- multi-class using logistic function (with regularization) to generate (train) multiple classifiers (input -> output), and prediction
 - neural network: forward propagation prediction using trained weights. 
+- (learn the displayData.m)
 
 ex3_companion.mlx
 
@@ -71,7 +72,21 @@ __Lecture Note__
 
 - Lecture 8
 
-### ex4: 
+### ex4: Neural Networks Learning
+
+ex4.mlx
+
+- unroll parameters and `reshape` during calling cost function
+- NN forward propagation
+- NN cost function and regularization
+- NN back propagation for gradient of cost function
+- 
+
+ex4_companion.mlx
+
+
+
+**Lecture Note**
 
 
 

@@ -30,7 +30,8 @@ z3 = a2 * Theta2';
 h = sigmoid(z3); %compute last layer (no._of_example*10) of probabilities for each class
 
 [~ , p] = max(h , [] , 2);
-
+% [M,I] = max(X,[],DIM) returns the max element value and location
+%, operates along the dimension DIM.
 
 % =========================================================================
 

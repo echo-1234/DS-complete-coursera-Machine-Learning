@@ -62,23 +62,46 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
+% Part 1: Feedforward and cost
+a1 = [ones(m,1) X];
+z2 = a1 * Theta1';
+a2 = sigmoid(z2);
+a2 = [ones(m, 1) a2];
+z3 = a2 * Theta2' ;
+h = sigmoid(z3);  
+%compute last layer (no._of_example*10) of probabilities for each class
 
+%label = 1:num_labels;
+%y_matrix = y == label; % exmaple * class_num
 
+eye_matrix = eye(num_labels);
+y_matrix = eye_matrix(y,:);
 
+J = -1/m * (sum(sum(y_matrix.*log(h)+(1-y_matrix).*log(1-h))));
+%====alternative 1====
+%for i = 1: m
+    %J = J + (y_matrix(i,:)*log(h(i,:))'+ (1-y_matrix(i,:))*log(1-h(i, :))');
+%end
+%J = -J/m ;
+%====alternative 2====
+% J = -1/m* trace(y_matrix'*log(h)+ (1-y_matrix)'*log(1-h));
 
+% Part3a: cost function regularization
+J = J + lambda/(2*m) * (sum(sum(Theta1(:, 2:end).^2)) + sum(sum(Theta2( :, 2:end).^2)));
+ 
+% Part 2: back propagation
+d3 = h - y_matrix;
+d2 = (d3 * Theta2 (:,2:end)).* sigmoidGradient(z2);
+%The 1st column of Theta2 omitted(for bias)
 
+Delta2 = d3' * a2;
+Delta1 = d2' * a1;
+Theta1_grad = Delta1 / m;
+Theta2_grad = Delta2 / m;
 
-
-
-
-
-
-
-
-
-
-
-
+% Part 3B: gradient regularization
+Theta1_grad(:,2:end) = Theta1_grad (:,2:end) + lambda/m * Theta1 (:,2:end);
+Theta2_grad(:,2:end) = Theta2_grad (:,2:end) + lambda/m * Theta2 (:,2:end);
 
 % -------------------------------------------------------------
 
@@ -86,6 +109,4 @@ Theta2_grad = zeros(size(Theta2));
 
 % Unroll gradients
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
-
-
 end
