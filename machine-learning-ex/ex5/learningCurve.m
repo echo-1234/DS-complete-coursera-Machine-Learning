@@ -50,15 +50,35 @@ error_val   = zeros(m, 1);
 %           
 %       end
 %
-
 % ---------------------- Sample Solution ----------------------
 
 
-
-
-
-
-
+X = [ones(m,1),X];
+cv = size(Xval,1);
+%=== without random and iteration===
+for i = 1:m
+        theta = trainLinearReg( X(1:i, :), y(1:i),lambda);
+        error_train(i) = 1/2/i * sum((X(1:i,:)*theta - y(1:i)).^2);
+        error_val(i) = 1/2/cv * sum(([ones(cv,1),Xval]*theta - yval).^2);
+end
+%====================================
+%=== with random selection and iterations//does not work so well
+% iteration = 10;
+% error_train_st = zeros(m, iteration);
+% error_val_st = zeros(m,iteration);
+% for i = 1:m
+%     for ite = 1:iteration
+%         sel = randperm(size(X, 1));
+%         sel = sel(1:i);
+%         
+%         theta = trainLinearReg(X(sel,:), y(sel),lambda);
+%         error_train_st(i,ite) = 1/2/i * sum((X(1:i,:)*theta - y(1:i)).^2);
+%         error_val_st(i,ite) = 1/2/cv * sum(([ones(cv,1),Xval]*theta - yval).^2);
+%     end
+% end
+% 
+%         error_train = mean(error_train_st, 2);
+%         error_val = mean(error_val_st,2);
 % -------------------------------------------------------------
 
 % =========================================================================

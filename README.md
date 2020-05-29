@@ -80,13 +80,33 @@ ex4.mlx
 - NN forward propagation
 - NN cost function and regularization
 - NN back propagation for gradient of cost function
-- 
 
 ex4_companion.mlx
 
-
+- Deep Learning Tool box (no installation permit)
 
 **Lecture Note**
+
+- Lecture 9
+
+### ex5: Diagnostic
+
+ex5.mlx
+
+- regularization of linear regression cost function and gradient
+- learning curve -> for each training set number, the training error evaluated for the corresponding samples, and the validation error evaluated for the entire cross validation set. 
+- constructing polynomial datasets
+- select lambda (regularization term) using the cross validation set
+- computing test error
+- (unsolved)(optional) random iteration for learning curve
+
+ex5_companion.mlx
+
+- 
+
+**Lecture Note**
+
+- Lecture 10
 
 
 

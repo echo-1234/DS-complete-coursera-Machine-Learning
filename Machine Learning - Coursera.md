@@ -595,9 +595,174 @@ Note: Excluding the first column of Theta2 is because the hidden layer bias unit
 
 7: Theta1_grad and Theta2_grad are the same size as their respective Deltas, just scaled by 1/m.
 
+## Part D: Choosing and evaluation effectively
 
+### A. Evaluating a learning algorithm
 
+What to try if it doesn't work
 
+- get more training examples
+- try smaller sets of features
+- try getting additional features
+- try adding polynomial features
+- try increase or decrease lambda
+
+**1. Machine learning diagnostic**
+
+the implementation takes time
+
+rule out a or suggest an action to take.
+
+**2. Evaluating a Hypothesis**
+
+1. spilt the dataset into training set (70%) and test set (30%)
+
+2. learn parameter theta (minimize training error)
+
+3. compute test set error (save definition of the cost function, only with test error)
+
+   - Linear regression $J_{test}(θ)=\frac{1}{2m_{test}}∑_{i=1}^m(h_θ(x_{test}^{(i)})−y_{test}^{(i)})^2$
+
+   - For classification ~ Misclassification error (aka 0/1 misclassification error):
+     $$
+     err(h_{\Theta}(x),y) = 
+     \begin{cases}
+     1	&{if \: h_{\Theta}(x) \geq 0.5 \: and \: y=0 \: or \:  h_{\Theta}(x) < 0.5 \: and \: y=1 \: }\\
+     0   &\text{otherwise}
+     \end{cases}
+     $$
+     The average test error
+     $$
+     \text{Test Error} = \frac{1}{m_{test}}\sum_{i=1}^{m_{test}} err(h_{\Theta}(x_{test}^{(i)}),y_{test}^{(i)})
+     $$
+
+**3. Model Selection and Train/Validation/Test sets**
+
+Training 60%/ cross validation 20%/ test set 20%
+
+1. Optimize the parameters in Θ using the training set for each polynomial degree.
+2. Find the polynomial degree d with the least error using the cross validation set.
+3. Estimate the generalization error using the test set with $J_{test}(\Theta^{(d)})$, (d = theta from polynomial with lower error);
+
+### B. Bias (underfit) and variance (overfit) problem
+
+**1. Diagnostic**
+
+- We need to distinguish whether **bias** or **variance** is the problem contributing to bad predictions.
+- High bias is underfitting and high variance is overfitting. Ideally, we need to find a golden mean between these two.
+
+![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/I4dRkz_pEeeHpAqQsW8qwg_bed7efdd48c13e8f75624c817fb39684_fixed.png?expiry=1589587200000&hmac=RrII-hr6XbG2RiZ3qG8nhz8YP6dm8M8Wb-M_N7dPaAs)
+
+**High bias (underfitting)**: both $J_{train}(\Theta)$and $J_{CV}(\Theta)$ will be high. Also, $J_{CV}(\Theta) \approx J_{train}(\Theta)$
+
+**High variance (overfitting)**: $J_{train}(\Theta)$ will be low and $J_{CV}(\Theta)$ will be much greater than $ J_{train}(\Theta)$
+
+**2. Regularization** (lambda)
+
+choosing lambda
+
+1. Create a list of lambdas (i.e. λ∈{0, 0.01, 0.02, 0.04, 0.08, 0.16, 0.32, 0.64, 1.28, 2.56, 5.12,10.24});
+2. Create a set of models with different degrees or any other variants.
+3. Iterate through the λs and for each λ go through all the models to learn some Θ.
+4. Compute the cross validation error using the learned Θ (computed with λ) on the $J_{CV}(\Theta)$**without** regularization or λ = 0. (and the training error without regularization) 
+5. Select the best combo that produces the lowest error on the cross validation set.
+6. Using the best combo Θ and λ, apply it on $J_{test}(\Theta)$ to see if it has a good generalization of the problem.
+
+**3. Learning curve**
+
+plot error as a function of m training set sizes.
+
+for each training set size, the training error evaluated for the corresponding samples, and the validation error evaluated for the entire cross validation set. 
+
+**Experiencing high bias:**
+
+**Low training set size**: causes $J_{train}(\Theta)$ to be low and $J_{CV}(\Theta)$ to be high.
+
+**Large training set size**: causes both $J_{train}(\Theta)$ and $J_{CV}(\Theta)$ to be high with $J_{train}(\Theta)≈J_{CV}(\Theta)$
+
+> If a learning algorithm is suffering from **high bias**, getting more training data will not **(by itself)** help much.
+
+![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/bpAOvt9uEeaQlg5FcsXQDA_ecad653e01ee824b231ff8b5df7208d9_2-am.png?expiry=1589587200000&hmac=LTmpeS6iqG9EQVu2h-r-KPeUJK2_tkS8kR-Y0FEr16E)
+
+**Experiencing high variance:**
+
+**Low training set size**: $J_{train}(\Theta)$ will be low and $J_{CV}(\Theta)$ will be high.
+
+**Large training set size**: $J_{train}(\Theta)$ increases with training set size and $J_{CV}(\Theta)$ continues to decrease without leveling off. Also,$ J_{train}(\Theta) < J_{CV}(\Theta)$but the difference between them remains significant.
+
+> If a learning algorithm is suffering from **high variance**, getting more training data is likely to help.
+
+![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/vqlG7t9uEeaizBK307J26A_3e3e9f42b5e3ce9e3466a0416c4368ee_ITu3antfEeam4BLcQYZr8Q_37fe6be97e7b0740d1871ba99d4c2ed9_300px-Learning1.png?expiry=1589587200000&hmac=lqX9-UsRv7RS32H3W41WBf-6Af0oeXZGWeehbrYpBy8)
+
+**4. Debugging a learning algorithm**
+
+| **Fix high variance**        | **Fix high bias**                                            |
+| ---------------------------- | ------------------------------------------------------------ |
+| get more training examples   |                                                              |
+| try smaller sets of features | try getting additional features<br />try adding polynomial features |
+| try increase lambda          | try decrease lambda                                          |
+
+**Size of NN**
+
+| size (no. parameters; no. layers) | pro                                               | characteristics                         |
+| --------------------------------- | ------------------------------------------------- | --------------------------------------- |
+| small                             | computationally inexpensive                       | fewer parameters; prone to underfitting |
+| large                             | expensive<br />use regularization for overfitting | more parameters; prone to overfitting   |
+
+**Model Complexity Effects:**
+
+- Lower-order polynomials (low model complexity) have high bias and low variance. In this case, the model fits poorly consistently.
+- Higher-order polynomials (high model complexity) fit the training data extremely well and the test data extremely poorly. These have low bias on the training data, but very high variance.
+
+## Part E: ML System Designing and possible issues
+
+### Prioritizing and Error analysis 
+
+- start with simple algorithm
+- plot learning curve to determine what is needed
+- error analysis: **manually** examine the examples (*in cross validation sets*) that your algorithm made errors on.
+
+**importance of numerical evaluation**: 
+
+It is very important to get error results as a **single, numerical value**  to assess your algorithm's performance through comparison.
+
+### Handling skewed class
+
+**Skewed class:** 
+
+- much more examples in one class than the other,
+
+- resulting a high accuracy if predict on the large data set, but may not suggest that it is a good model. 
+
+**Precision/Recall** (two error metrics) (of cross validation set)
+
+y = 1 for rare class detection. 
+
+| Precision                                                    | **Recall**                                                   |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| high desired                                                 | high desired                                                 |
+| true positives/ predicted positives = true positives/ (true positive+ positives) | true positives/ actual positives = true positives/ (true positive+ false negative) |
+
+**Trading off between precision and recall**
+
+*adjusting the threshold*
+
+toward higher threshold => classifier with higher precision, lower recall.
+
+towards lower threshold => classifier with higher recall, lower precision.
+
+**F_1 score**
+
+Choosing threshold according to one metric from precision and recall
+$$
+F_1 \: score: 2\frac{PR}{P+R}
+$$
+
+### Large Data Sets
+
+1. assume feature x has sufficient information to predict y accurately. (eg. human expert judgement)
+
+2. train with a large number of parameters
 
 ## Personal side note
 
