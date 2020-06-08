@@ -764,6 +764,80 @@ $$
 
 2. train with a large number of parameters
 
+## Part IV: Support Vector Machines
+
+### A. Large Margin Classification
+
+$$
+min_{\theta}C\sum_{i=1}^m[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y^{(i)})cost_0(\theta^Tx^{(i)})]+\frac{1}{2}\sum_{i=1}^n\theta^2_j
+$$
+
+**Large Margin Intuition**
+
+if y=1, we want $ \theta^Tx \geq 1$  (not just >= 0)
+
+if y=0, we want $ \theta^Tx \leq 1$  (not just <= 0)
+
+### B. Kernels
+
+ (Gaussian Kernels)
+
+**choosing the landmarks** to define the kernels
+$$
+f_1 = similarity (x, l^{(1)}) = \exp(-\frac{||x-l^{(1)}||^2}{2\sigma^2}) = \exp(-\frac{\sum^n_{j=1}(x_j-l_j^{(1)})^2}{2\sigma^2})
+$$
+when x close to l, f1 = 1; when x far from l, f1 =0.
+
+The effect of sigma: if sigma squared is large, then as you move away from l1, the value of the feature falls away much more slowly.
+
+Choose the landmarks at the location of my training examples, end up with m landmarks. 
+
+#### SVM parameters
+
+1. C= 1/lambda 
+
+- large C: lower bias, high variance (small lambda)
+- small C: higher bias, low variance
+
+2. sigma^2
+
+- large sigma^2: features fi vary more smoothly. -> higher bias, lower variance.
+- small sigma^2: features fi vary less smoothly. -> lower bias, higher variance.
+
+### C. Using an SVM
+
+**SVM software package**
+
+need to specify
+
+- choice of parameter C
+
+- choice of kernel (similarity function)
+
+  - eg. no kernel ("linear kernel")
+
+  - Gaussian kernel (need to choose sigma^2)
+
+    choose when you have a pretty large training set with nonlinear decision boundary
+
+    need to perform feature scaling before using the Gaussian kernel(avoid being dominated by the value itself)
+    
+  - Not all similarity functions make valid kernels
+  
+  - off the shelf: polynomial kernels, string kernel, chi-square kernel, histogram intersection kernel. 
+
+### D. Logistic regression vs. SVMs
+
+n = number of features; m = number of training examples
+
+If n is larger, use logistic or SVM without kernel
+
+if n is small, m is intermediate, use SVM with Gaussian kernel
+
+if n is small, m is large, create/add more features, the use logistic regression or SVM without  kernel.   
+
+
+
 ## Personal side note
 
 - Machine learning involves the fitting of many functions, and the prediction based on the fitted parameters, where NN is only one of them
