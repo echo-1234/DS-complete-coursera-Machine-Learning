@@ -766,6 +766,8 @@ $$
 
 ## Part IV: Support Vector Machines
 
+> Lecture 12
+
 ### A. Large Margin Classification
 
 $$
@@ -780,7 +782,7 @@ if y=0, we want $ \theta^Tx \leq 1$  (not just <= 0)
 
 ### B. Kernels
 
- (Gaussian Kernels)
+ **(Gaussian Kernels)**
 
 **choosing the landmarks** to define the kernels
 $$
@@ -788,11 +790,13 @@ f_1 = similarity (x, l^{(1)}) = \exp(-\frac{||x-l^{(1)}||^2}{2\sigma^2}) = \exp(
 $$
 when x close to l, f1 = 1; when x far from l, f1 =0.
 
-The effect of sigma: if sigma squared is large, then as you move away from l1, the value of the feature falls away much more slowly.
+The Gaussian kernel is also parameterized by a bandwidth parameter, , which determines how fast the similarity metric decreases (to 0) as the examples are further apart. The effect of sigma: if sigma squared is large, then as you move away from l1, the value of the feature falls away much more slowly.
 
 Choose the landmarks at the location of my training examples, end up with m landmarks. 
 
 #### SVM parameters
+
+!  use the cross validation set Xval, yval to determine the best  and  parameter to use
 
 1. C= 1/lambda 
 

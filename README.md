@@ -108,5 +108,22 @@ ex5_companion.mlx
 
 - Lecture 10
 
+### ex6: Support Vector Machines (and spam classification)
+
+ex6.mlx
+
+- Gaussian kernel
+- selecting C and sigma based on cross validation set
+- processEmail.m: tidying up email, compare and find the feature word(`strcmp`)
+- (optional) use trained model to predict
+- (optional) build own database
 
 
+
+ex6_companion.mlx
+
+
+
+**Lecture Note**
+
+- Lecture 12
