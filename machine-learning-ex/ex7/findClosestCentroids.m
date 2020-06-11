@@ -21,11 +21,11 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
-
-
-
-
-
+for i = 1:size(X,1)
+    [ ~ , idx(i) ] = min(sum((X(i,:)-centroids).^2 , 2));
+    % sum (matrix, dim) return sum along dim.2 (sum along row=dim.1)
+    % [M, I] = min() return the minimum and the index
+end
 
 % =============================================================
 

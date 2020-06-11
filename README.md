@@ -127,3 +127,36 @@ ex6_companion.mlx
 **Lecture Note**
 
 - Lecture 12
+
+
+
+### ex7: K-mean and Principal Component Analysis (PCA)
+
+ex7.mlx
+
+**K-means**
+
+- find closest centroid
+- move centroid
+- random initialization
+- image compression using k-means
+  - read image in matlab using `imread`
+  - image data processing into each pixel represent an example
+  - clustering into expected number of color K as centroids
+  - you can replace each pixel location with the mean of the centroid assigned to it.
+
+**PCA**
+
+- computing the covariance matrix and its Singular value decomposition (including eigenvector space)
+- projection onto the reduce dimension k. 
+
+
+
+ex7_companion.mlx
+
+
+
+**Lecture Notes**
+
+- Lecture 13
+- Lecture 14

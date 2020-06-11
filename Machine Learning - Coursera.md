@@ -2,13 +2,15 @@
 
 > Lecture 1
 
-Supervised learning, the answer is known
+**Supervised learning,** the answer is known
 
 Regression problem - continuous value
 
 Classification problem
 
-Unsupervised learning, ask the algorithm to find a pattern/structure in a set of given data.
+**Unsupervised learning**, ask the algorithm to find a pattern/structure in a set of given data.
+
+# Supervised Learning
 
 ## Part I.  Linear regression
 
@@ -841,6 +843,221 @@ if n is small, m is intermediate, use SVM with Gaussian kernel
 if n is small, m is large, create/add more features, the use logistic regression or SVM without  kernel.   
 
 
+
+# Unsupervised Learning
+
+finding pattern in a set of data
+
+## Part V: Clustering : K_Means Algorithm
+
+> Lecture 13
+
+1. Inputs
+
+   - K(number of clusters)
+   - Training set (without labels), drop x0=1 as convention, therefore n samples
+
+2. Algorithm
+
+   ```matlab
+   Randomly initialize K cluster centroids
+   
+   Repeat 
+   {
+   
+   %% A. (cluster assignment step)
+   
+      for i=1 to m
+   
+          c(i) = index (from 1 to K) of cluster centroid closest to x(i)
+   
+   %% B. (move centroid step)
+   
+      for k= 1 to K
+   
+           miu_k = average (mean) of points assigned to cluster k
+   }
+   ```
+
+   
+
+3. non-separated clusters
+
+### A. K-means optimization objective
+
+$c^{(i)}$ = index of cluster (1,2,...K) to which example $x^{(i)}$ is currently assigned
+
+$\mu_k$ = cluster centroid k
+
+$\mu_c^{(i)}$ = cluster centroid of cluster to which example $x^{(i)}$ has been assigned
+
+**cost function:**
+$$
+J(c^{(1)}, \dots,c^{(m)},\mu_1,\dots,\mu_K) = \frac{1}{m}\sum^m_{i=1}||x^{(i)}-\mu_c^{(i)}||^2 \\
+$$
+**optimization objective: minimize cost function** 
+$$
+min_{c^{(1)}, \dots,c^{(m)},\mu_1,\dots,\mu_K}J(c^{(1)}, \dots,c^{(m)},\mu_1,\dots,\mu_K)
+$$
+
+### B. Random Initialization
+
+Should have K<m, pick K training examples and set them as the initial centroids
+
+To avoid sticking in local minima, try multiple random initialization is a possible approach -> pick clustering that gave the lowest cost. 
+
+### C. Choosing the number of clusters
+
+common is manually from inspection of the samples. 
+
+- Elbow method
+
+  number of cluster (x) against cost function J, choose the value at the "elbow" seems reasonable
+
+- evaluate K-means based on how it performs for the later/downstream purpose
+
+## Part VI: Dimensionality Reduction: PCA
+
+> Lecture 14
+
+### A. Motivations
+
+**1.  Data Compression**
+
+we apply dimensionality reduction to a dataset of m examples $\{x^{(1)}, x^{(2)}, \dots, x^{(m)}\}, where x^{(i)}\in\mathbb{R}^n$, and we will get A lower dimensional dataset $\{z^{(1)}, z^{(2)},\dots, z^{(m)}\} $ of m examples where $z^{(i)} \in \mathbb{R}^k$for some value of k and $k\leq n$
+
+**2. Data Visualization**
+
+Reduce to 2D or 3D so that a plotting is possible
+
+### B. Principal Component Analysis (PCA) Algorithm
+
+> PCA is not linear regression (minimum projection "path" but not minimum cost (difference between y and hypothesis))
+
+#### 1. Problem formulation
+
+Reduce from n-dimension to k-dimension: find k vectors u1, u2, ..., uk ( linear subspace spanned by this set of k vectors) onto which to project the data, so as to minimize the projection error. 
+
+#### 2. PCA Algorithm
+
+**Preprocessing (feature scaling/mean normalization)** 
+
+a. mean normalization (each feature will then have exactly zero mean)
+$$
+\mu_j = \frac{1}{m}\sum^m_{j=1}x_j^{(i)}
+$$
+   replace each $x_j^{(i)}$ with $x_j-\mu_j$
+
+b. feature scaling: scale features to have comparable range of values.
+
+**Algorithm**
+
+a. Compute "covariance matrix"
+$$
+\Sigma = \frac{1}{m}\sum^n_i{(x^{(i)})(x^{(i)})^T}
+$$
+​    Vectorized implementation
+
+```matlab
+Sigma = (1/m)*X'*X;
+```
+
+b. Compute "eigenvectors" of matrix $\Sigma$
+
+```matlab
+[U,S,V] = svd(Sigma);
+```
+
+- svd: Singular value decomposition
+- Sigma is n*n matrix (from definition ${(x^{(i)})(x^{(i)})^T}$ is a n*n matrix)
+- U matrix is also n*n matrix, the columns are the vectors => if we want to reduce to k, we just use the first k columns of the U matrix
+
+c. take the  first k columns of the U matrix to form U_reduce
+
+```matalb
+U_reduce = U(:, 1:k);
+```
+
+d. compute Z
+
+```matlab
+z = U_reduce' * x
+```
+
+### C. Applying PCA
+
+#### 1. Reconstruction from Compressed Representation
+
+```matlab
+X_approx = U_reduce * z;
+```
+
+#### 2. Choose the number of principal components k
+
+**a. "99% of variance is retained"**
+
+typically, choose k to be smallest value so that
+$$
+\frac{\frac{1}{m}\sum^m_{i=1}{||x^{(i)} - x^{(i)}_{approx}||^2}}{\frac{1}{m}\sum^m_{i=1}{||x^{(i)} ||^2}} \leq 0.01
+$$
+
+> "99% of variance is retained"
+
+- numerator: average squared projection error(, which the PCA aims to minimize)
+
+- denominator: total variation in the data 
+  $$
+  \frac{1}{m}\sum^m_{i=1}{||x^{(i)} ||^2}
+  $$
+  
+
+**b. Procedure**
+
+I. try PCA from k=1, and check the fraction
+
+II. `[U, S, V] = svd(Sigma`), the target fraction can be computed from the S matrix
+
+for given k, check
+$$
+1-\frac{\sum^k_{i=1}S_{ii}}{\sum^n_{i=1}S_{ii}} \leq 0.01
+$$
+
+#### 3. Advice on application
+
+**Example: Supervised learning speedup**
+
+ (x1,y1),  (x2,y2), ...,  (xm,ym),
+
+Step 1: Extract input (without output)
+
+Step 2: PCA
+
+Step 3: New training set: (z1,y1),  (z2,y2), ...,  (zm,ym), (with much less features)
+
+Note: Mapping (U_reduce) x(i) -> z(i) should be defined by running PCA only on training set. Then, this mapping can be applied as well to cross validation and test sets
+
+**Application**
+
+- compression
+  - Reduce memory/disk needed to store data
+  - speed up learning algorithm
+- Visualization -> usually k=2 or 3
+
+**Bad use, misuse: **
+
+- to prevent overfitting
+
+  fewer feature thus less likely to overfit
+
+  might be OK, but isn't a good way, use regularization instead
+
+  because PCA ignore y values, thus is like to throw away valuable information
+
+- PCA is sometimes used when it shouldn't be 
+
+  Instead of making plan to use PCA in advance
+
+  before you implement  PCA, first do with the original raw data xi, and only if that doesn't do what you want, then implement PCA and consider using zi.
 
 ## Personal side note
 
