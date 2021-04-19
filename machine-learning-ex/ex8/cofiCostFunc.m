@@ -20,7 +20,7 @@ Theta_grad = zeros(size(Theta));
 % ====================== YOUR CODE HERE ======================
 % Instructions: Compute the cost function and gradient for collaborative
 %               filtering. Concretely, you should first implement the cost
-%               function (without regularization) and make sure it is
+%               function (without regularization) and make sure it
 %               matches our costs. After that, you should implement the 
 %               gradient and use the checkCostFunction routine to check
 %               that the gradient is correct. Finally, you should implement
@@ -41,18 +41,17 @@ Theta_grad = zeros(size(Theta));
 %
 
 
+J = sum((R.*(X * Theta' - Y)).^2, 'all')/2 ...
+    + lambda*sum(Theta.^2,'all')/2 +...
+    + lambda*sum(X.^2,'all')/2 ;
 
+%matching at the feature vectors, summing over all users for each movie
+%element in that vector
+X_grad = (( (R.*(X * Theta' - Y))*  Theta)) + lambda * X; 
 
-
-
-
-
-
-
-
-
-
-
+%matching at the feature vectors, summing over all movies for each user
+%element in that vector
+Theta_grad = ((R.*(X * Theta' - Y))' * X) + lambda * Theta;
 
 
 % =============================================================

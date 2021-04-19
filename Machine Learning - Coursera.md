@@ -1,4 +1,4 @@
-# Machine Learning - Coursera
+# Machine Learning - Coursera (2011)
 
 > Lecture 1
 
@@ -14,9 +14,11 @@ Classification problem
 
 ## Part I.  Linear regression
 
->  Lecture 2
+>  [[Lecture2-One Variable Linear Regression.pdf]]
 >
->  Lecture 4 
+> [[Lecture4-Multiple Variable Linear Regression.pdf]] 
+
+> ex1
 
 ### A. Hypothesis
 
@@ -76,7 +78,7 @@ c. Polynomial Regression
 
 Features and polynomial regression: use existing parameter to construct additional "features", higher order features
 
-### C. Normal equation
+### D. Normal equation
 
 __Design Matrix X__
 $$
@@ -132,6 +134,10 @@ __Non-invertible cause__
 
 > Lecture 6 
 
+> ex2: logistic regression
+>
+> ex3: one vs.all application figure recognition
+
 eg. spam and not spam etc.
 
 Threshold classifier: usually applying linear regression is not good for classification problem.
@@ -150,9 +156,7 @@ $$
 \end{align}
 $$
 
-![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/1WFqZHntEead-BJkoDOYOw_2413fbec8ff9fa1f19aaf78265b8a33b_Logistic_function.png?expiry=1586995200000&hmac=o6OBhQjBNSrKNlSfjQKy8RtxL_I1fF67ldHejcqVlVo)
-
-
+![image-20201026121446066](G:\Google Drive\Coursera-Machine Learning\Note Figures\image-20201026121446066.png)
 
 2. Output is the probability of y=1, with the given condition of x parameters
    $$
@@ -178,10 +182,9 @@ $$
    $$
    $Cost (h_\theta, y) = \frac{1}{2}(h_\theta - y)^2$ This cost function will be "non-convex" that deteriorate gradient descent
    
-   ![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/Q9sX8nnxEeamDApmnD43Fw_1cb67ecfac77b134606532f5caf98ee4_Logistic_regression_cost_function_positive_class.png?expiry=1587081600000&hmac=mmwT1MMTMwgDfmyPPHjIYyXihAqdb674PnbEbjlGkog) ![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/Ut7vvXnxEead-BJkoDOYOw_f719f2858d78dd66d80c5ec0d8e6b3fa_Logistic_regression_cost_function_negative_class.png?expiry=1586995200000&hmac=FV0FKGHkF8jVgjDqvCZAZ1Nxt6Nn0T_JPgSV1MrYjis)
+   ![image-20201026123142472](G:\Google Drive\Coursera-Machine Learning\Note Figures\image-20201026123142472.png)
 
->  
-
+![image-20201026123306383](G:\Google Drive\Coursera-Machine Learning\Note Figures\image-20201026123306383.png)
 $$
 Cost(h_θ(x),y)=0 \quad \text if \; h_θ(x)=y\\
 Cost(h_θ(x),y)→∞ \quad \text if \; y=0 \; and\;h_θ(x)→1\\
@@ -237,15 +240,13 @@ $$
 | ------------------------------------------------------------ | --------------------------- |
 | No need to choose \alpha <br />faster than gradient descent (line search) | more complex implementation |
 
-### Multiclass Classification
+### C. Multiclass Classification
 
 example: tagging 
 
 __One-vs-all:__
 
 use one boundary to separate each set with the rest, which means we need to train k classifiers for k classes
-
-![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/cqmPjanSEeawbAp5ByfpEg_299fcfbd527b6b5a7440825628339c54_Screenshot-2016-11-13-10.52.29.png?expiry=1586995200000&hmac=ArJmYwQI3G3QprBrGUrf6qd14YvMd3z9OBQQUPXl6MA)
 
 Equation
 $$
@@ -256,6 +257,10 @@ h^{(1)}_θ(x)=P(y=1|x;θ)\\
 h^{(n)}_θ(x)=P(y=n|x;θ)\\
 prediction=max_i(h^{(i)}_θ(x))
 $$
+
+Train a logistic regression classifier got each class i to predict the probability that y=i.
+
+To make prediction for new input x, generate the hypothesis of x for all classifiers with the theta, pick the class that maximize the hypothesis.
 
 ## Part C: Over-fitting and regularization
 
@@ -331,11 +336,15 @@ $$
 >
 > Lecture 9
 
+> ex3
+>
+> ex4: application figure recognition
+
 ### A. Neural Network Model Representation and forward propagation
 
 __1. Neuron model.__
 
->  eg. neuron with signoid (logistic) activation function
+>  eg. neuron with sigmoid (logistic) activation function
 
 $$
 \begin{bmatrix} x_0 \\ x_1\\ x_2\\ x_3 \end{bmatrix} \to \begin{bmatrix} a_1^{(2)} \\ a_2^{(2)}\\ a_3^{(2)}\end{bmatrix} \to h_\theta(x)
@@ -377,19 +386,21 @@ __4. Example: Non-linear classification example: XOR/XNOR__
 
 __Intuition I__
 
-![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/f_ueJLGnEea3qApInhZCFg_a5ff8edc62c9a09900eae075e8502e34_Screenshot-2016-11-23-10.03.48.png?expiry=1587254400000&hmac=ocKv6teYgi7EpY4t3ErYTX4F9LrcDcwXlMTZMxhlTls)
+![image-20201026150514648](G:\Google Drive\Coursera-Machine Learning\Note Figures\image-20201026150514648.png)
 
-![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/wMOiMrGnEeajLxLfjQiSjg_bbbdad80f5c95068bde7c9134babdd77_Screenshot-2016-11-23-10.07.24.png?expiry=1587254400000&hmac=fB9YMuZHp9TmzojZkyV2u_oACTX3h8wn77YBtQnmPU8)
+![image-20201026150545567](G:\Google Drive\Coursera-Machine Learning\Note Figures\image-20201026150545567.png)
 
 __Intuition II__
 
 > XOR: true only if a or b true
 >
-> XNOR == NOT( a XOR b)![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/rag_zbGqEeaSmhJaoV5QvA_52c04a987dcb692da8979a2198f3d8d7_Screenshot-2016-11-23-10.28.41.png?expiry=1587254400000&hmac=BYH98BIpn3yWNAmZ7crHSefOMTRBQWdDIAhnTgViQh0)
+> XNOR == NOT( a XOR b)
+>
+> ![image-20201026151600583](G:\Google Drive\Coursera-Machine Learning\Note Figures\image-20201026151600583.png)
 
 __5. Multiclass Classification: One-vs-all__
 
-![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/9Aeo6bGtEea4MxKdJPaTxA_4febc7ec9ac9dd0e4309bd1778171d36_Screenshot-2016-11-23-10.49.05.png?expiry=1587254400000&hmac=StQX95SZfgmjxaw7MWux087F5ob4p_GbUXNDvp0PWNs)
+![image-20201026151733598](G:\Google Drive\Coursera-Machine Learning\Note Figures\image-20201026151733598.png)
 
 multiple output units, represent y as vectors.
 $$
@@ -441,7 +452,10 @@ Given training set ${(x^{(1)},y^{(1)})⋯(x^{(m)},y^{(m)})}$
 For training example t =1 to m:
 
 1. Set $a^{(1)} := x^{(t)}$
+
 2. Perform __forward propagation__ to compute $a^{(l)}$ for l=2,3,…,L
+
+   **-> back propagate**
 
 3. Using $y^{(t)}$, compute $\delta^{(L)} = a^{(L)} - y^{(t)}$
 
@@ -491,7 +505,7 @@ Theta3 = reshape(thetaVector(221:231),1,11)
 %  reshape(X,M,N) or reshape(X,[M,N]) returns the M-by-N matrix whose elements are taken columnwise from X.
 ```
 
-![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/kdK7ubT2EeajLxLfjQiSjg_d35545b8d6b6940e8577b5a8d75c8657_Screenshot-2016-11-27-15.09.24.png?expiry=1587600000000&hmac=_6DASE7hth0UWnd3uS62VzxP0R8nOuRj_B4qENlvQV4)
+![image-20201026160328184](G:\Google Drive\Coursera-Machine Learning\Note Figures\image-20201026160328184.png)
 
 __2. Gradient Checking__
 $$
@@ -499,9 +513,11 @@ $$
 \frac{∂}{∂Θ_j}J(Θ)≈\frac{J(\Theta_1,\dots,Θ_j+ϵ,\dots,Θ_n)−J(\Theta_1,\dots,Θ_j-ϵ,\dots,Θ_n)}{2ϵ}
 $$
 
-- this compares the calculated cost function gradient with an infinitesimally approximated gradient 
+- this compares the calculated cost function gradient with an infinitesimally approximated gradient
+- check if the derivative function is outputting correct derivative values.
 - two sided is slightly more accurate than one sided
 - $\epsilon$ recommended to use $~10^{-4}$
+- should see a relative difference that is less than 1e-9
 
 codes:
 
@@ -599,6 +615,8 @@ Note: Excluding the first column of Theta2 is because the hidden layer bias unit
 
 ## Part D: Choosing and evaluation effectively
 
+> ex5
+
 ### A. Evaluating a learning algorithm
 
 What to try if it doesn't work
@@ -617,7 +635,7 @@ rule out a or suggest an action to take.
 
 **2. Evaluating a Hypothesis**
 
-1. spilt the dataset into training set (70%) and test set (30%)
+1. split the dataset into training set (70%) and test set (30%)
 
 2. learn parameter theta (minimize training error)
 
@@ -642,9 +660,9 @@ rule out a or suggest an action to take.
 
 Training 60%/ cross validation 20%/ test set 20%
 
-1. Optimize the parameters in Θ using the training set for each polynomial degree.
-2. Find the polynomial degree d with the least error using the cross validation set.
-3. Estimate the generalization error using the test set with $J_{test}(\Theta^{(d)})$, (d = theta from polynomial with lower error);
+1. Optimize the parameters in Θ using the **training set** for each polynomial degree. The set used for learning.
+2. Find the polynomial degree d with the least error using the **cross validation set**.  Used to determine the regularization parameter.
+3. Estimate the generalization error using the **test set** with $J_{test}(\Theta^{(d)})$, (d = theta from polynomial with lower error);
 
 ### B. Bias (underfit) and variance (overfit) problem
 
@@ -653,7 +671,7 @@ Training 60%/ cross validation 20%/ test set 20%
 - We need to distinguish whether **bias** or **variance** is the problem contributing to bad predictions.
 - High bias is underfitting and high variance is overfitting. Ideally, we need to find a golden mean between these two.
 
-![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/I4dRkz_pEeeHpAqQsW8qwg_bed7efdd48c13e8f75624c817fb39684_fixed.png?expiry=1589587200000&hmac=RrII-hr6XbG2RiZ3qG8nhz8YP6dm8M8Wb-M_N7dPaAs)
+![image-20201026185811541](G:\Google Drive\Coursera-Machine Learning\Note Figures\image-20201026185811541.png)
 
 **High bias (underfitting)**: both $J_{train}(\Theta)$and $J_{CV}(\Theta)$ will be high. Also, $J_{CV}(\Theta) \approx J_{train}(\Theta)$
 
@@ -670,6 +688,8 @@ choosing lambda
 5. Select the best combo that produces the lowest error on the cross validation set.
 6. Using the best combo Θ and λ, apply it on $J_{test}(\Theta)$ to see if it has a good generalization of the problem.
 
+![image-20201026190834204](G:\Google Drive\Coursera-Machine Learning\Note Figures\image-20201026190834204.png)
+
 **3. Learning curve**
 
 plot error as a function of m training set sizes.
@@ -684,7 +704,7 @@ for each training set size, the training error evaluated for the corresponding s
 
 > If a learning algorithm is suffering from **high bias**, getting more training data will not **(by itself)** help much.
 
-![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/bpAOvt9uEeaQlg5FcsXQDA_ecad653e01ee824b231ff8b5df7208d9_2-am.png?expiry=1589587200000&hmac=LTmpeS6iqG9EQVu2h-r-KPeUJK2_tkS8kR-Y0FEr16E)
+![image-20201026191337879](G:\Google Drive\Coursera-Machine Learning\Note Figures\image-20201026191337879.png)
 
 **Experiencing high variance:**
 
@@ -694,7 +714,7 @@ for each training set size, the training error evaluated for the corresponding s
 
 > If a learning algorithm is suffering from **high variance**, getting more training data is likely to help.
 
-![img](https://d3c33hcgiwev3.cloudfront.net/imageAssetProxy.v1/vqlG7t9uEeaizBK307J26A_3e3e9f42b5e3ce9e3466a0416c4368ee_ITu3antfEeam4BLcQYZr8Q_37fe6be97e7b0740d1871ba99d4c2ed9_300px-Learning1.png?expiry=1589587200000&hmac=lqX9-UsRv7RS32H3W41WBf-6Af0oeXZGWeehbrYpBy8)
+![image-20201026191427506](C:\Users\echoz\AppData\Roaming\Typora\typora-user-images\image-20201026191427506.png)
 
 **4. Debugging a learning algorithm**
 
@@ -738,12 +758,40 @@ It is very important to get error results as a **single, numerical value**  to a
 
 **Precision/Recall** (two error metrics) (of cross validation set)
 
+tp: true positive
+
+fp: false positive
+
+tn: true negative
+
+fn: false negative
+
+Precision: 
+
+> true positive out of all the predicted positives
+
+$$
+\frac{tp}{tp+fp}
+$$
+
+Recall:
+
+> predicted correct positive out of all the actual positive
+
+$$
+\frac{tp}{tp+fn}
+$$
+
+
+
+
+
 y = 1 for rare class detection. 
 
 | Precision                                                    | **Recall**                                                   |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| high desired                                                 | high desired                                                 |
-| true positives/ predicted positives = true positives/ (true positive+ positives) | true positives/ actual positives = true positives/ (true positive+ false negative) |
+| high value desired                                           | high value desired                                           |
+| true positives/ predicted positives = true positives/ (true positive+ false positives) | true positives/ actual positives = true positives/ (true positive+ false negative) |
 
 **Trading off between precision and recall**
 
@@ -770,45 +818,65 @@ $$
 
 > Lecture 12
 
-### A. Large Margin Classification
+> ex6: application on spam classification
 
+### A. Hypothesis and cost function
+
+Hypothesis:
+$$
+h_\theta(x)=\begin{cases}
+1	&\text{if }\theta^{T}x\geq 0\\
+0   &\text{otherwise}
+\end{cases}
+$$
+cost function
 $$
 min_{\theta}C\sum_{i=1}^m[y^{(i)}cost_1(\theta^Tx^{(i)})+(1-y^{(i)})cost_0(\theta^Tx^{(i)})]+\frac{1}{2}\sum_{i=1}^n\theta^2_j
 $$
 
-**Large Margin Intuition**
+**Large Margin Intuition and Decision Boundary**
+
+![image-20201026200314685](G:\Google Drive\Coursera-Machine Learning\Note Figures\image-20201026200314685.png)
 
 if y=1, we want $ \theta^Tx \geq 1$  (not just >= 0)
 
 if y=0, we want $ \theta^Tx \leq 1$  (not just <= 0)
 
+* The SVM would choose a better decision boundary because that one has larger margin (distance between the sample edge), thus giving it better robustness.  Separating the positive and negative example with largest margin possible. 
+
+![image-20201026200509356](G:\Google Drive\Coursera-Machine Learning\Note Figures\image-20201026200509356.png)
+
 ### B. Kernels
 
- **(Gaussian Kernels)**
+choosing the landmarks l to **define the kernels**
 
-**choosing the landmarks** to define the kernels
+The new features created as following similarity kernel function  **(Gaussian Kernels here)**
 $$
 f_1 = similarity (x, l^{(1)}) = \exp(-\frac{||x-l^{(1)}||^2}{2\sigma^2}) = \exp(-\frac{\sum^n_{j=1}(x_j-l_j^{(1)})^2}{2\sigma^2})
 $$
 when x close to l, f1 = 1; when x far from l, f1 =0.
 
-The Gaussian kernel is also parameterized by a bandwidth parameter, , which determines how fast the similarity metric decreases (to 0) as the examples are further apart. The effect of sigma: if sigma squared is large, then as you move away from l1, the value of the feature falls away much more slowly.
+The Gaussian kernel is also parameterized by a bandwidth parameter, $\sigma$ , which determines how fast the similarity metric decreases (to 0) as the examples are further apart. The effect of sigma: if sigma squared is large, then as you move away from l_1, the value of the feature falls away much more slowly.
 
-Choose the landmarks at the location of my training examples, end up with m landmarks. 
+![image-20201026201032255](G:\Google Drive\Coursera-Machine Learning\Note Figures\image-20201026201032255.png)
+
+**Choose the landmarks** at exactly the location of my training examples, end up with m landmarks. 
+
+number of features n is same as the number of the training examples m, because of the way of definition.
 
 #### SVM parameters
 
 !  use the cross validation set Xval, yval to determine the best  and  parameter to use
 
-1. C= 1/lambda 
+1. $C= \frac{1}{\lambda}$
 
 - large C: lower bias, high variance (small lambda)
 - small C: higher bias, low variance
 
-2. sigma^2
+2. $\sigma^2$
 
-- large sigma^2: features fi vary more smoothly. -> higher bias, lower variance.
-- small sigma^2: features fi vary less smoothly. -> lower bias, higher variance.
+- large $\sigma^2$: features fi vary more smoothly. -> higher bias, lower variance.
+- small $\sigma^2$: features fi vary less smoothly. -> lower bias, higher variance.
 
 ### C. Using an SVM
 
@@ -822,11 +890,11 @@ need to specify
 
   - eg. no kernel ("linear kernel")
 
-  - Gaussian kernel (need to choose sigma^2)
+  - Gaussian kernel (need to choose \sigma^2)
 
     choose when you have a pretty large training set with nonlinear decision boundary
 
-    need to perform feature scaling before using the Gaussian kernel(avoid being dominated by the value itself)
+    need to perform feature scaling before using the Gaussian kernel (avoid being dominated by the value itself)
     
   - Not all similarity functions make valid kernels
   
@@ -852,6 +920,8 @@ finding pattern in a set of data
 
 > Lecture 13
 
+> ex.7 application in image compression
+
 1. Inputs
 
    - K(number of clusters)
@@ -867,15 +937,16 @@ finding pattern in a set of data
    
    %% A. (cluster assignment step)
    
-      for i=1 to m
+      for i = 1 to m
    
-          c(i) = index (from 1 to K) of cluster centroid closest to x(i)
+          c(i) = index (from 1 to K) of cluster centroid mu_k closest to x(i)
+          => c(i)=j for the min ||x(i) - mu(j)||^2
    
    %% B. (move centroid step)
    
-      for k= 1 to K
+      for k = 1 to K
    
-           miu_k = average (mean) of points assigned to cluster k
+           mu_k = average (mean) of points assigned to cluster k
    }
    ```
 
@@ -904,7 +975,7 @@ $$
 
 Should have K<m, pick K training examples and set them as the initial centroids
 
-To avoid sticking in local minima, try multiple random initialization is a possible approach -> pick clustering that gave the lowest cost. 
+To avoid sticking in local minima, try multiple random initialization is a possible approach -> pick clustering that gave the lowest cost function (distortion). 
 
 ### C. Choosing the number of clusters
 
@@ -914,9 +985,11 @@ common is manually from inspection of the samples.
 
   number of cluster (x) against cost function J, choose the value at the "elbow" seems reasonable
 
+  ![image-20201027192321447](G:\Google Drive\Coursera-Machine Learning\Note Figures\image-20201027192321447.png)
+
 - evaluate K-means based on how it performs for the later/downstream purpose
 
-## Part VI: Dimensionality Reduction: PCA
+## Part VI: Dimensionality Reduction: PCA (Principal component Analysis)
 
 > Lecture 14
 
@@ -924,7 +997,7 @@ common is manually from inspection of the samples.
 
 **1.  Data Compression**
 
-we apply dimensionality reduction to a dataset of m examples $\{x^{(1)}, x^{(2)}, \dots, x^{(m)}\}, where x^{(i)}\in\mathbb{R}^n$, and we will get A lower dimensional dataset $\{z^{(1)}, z^{(2)},\dots, z^{(m)}\} $ of m examples where $z^{(i)} \in \mathbb{R}^k$for some value of k and $k\leq n$
+We apply dimensionality reduction to a dataset of m examples $\{x^{(1)}, x^{(2)}, \dots, x^{(m)}\}, where x^{(i)}\in\mathbb{R}^n$, and we will get a lower dimensional dataset $\{z^{(1)}, z^{(2)},\dots, z^{(m)}\} $ of m examples where $z^{(i)} \in \mathbb{R}^k$for some value of k and $k\leq n$ 
 
 **2. Data Visualization**
 
@@ -968,17 +1041,19 @@ b. Compute "eigenvectors" of matrix $\Sigma$
 [U,S,V] = svd(Sigma);
 ```
 
-- svd: Singular value decomposition
-- Sigma is n*n matrix (from definition ${(x^{(i)})(x^{(i)})^T}$ is a n*n matrix)
+- svd: Singular value decomposition, U will contain the principal components and S will contain a diagonal matrix
+- Sigma is n\*n matrix (from definition ${(x^{(i)})(x^{(i)})^T}$ is a n*n matrix)
 - U matrix is also n*n matrix, the columns are the vectors => if we want to reduce to k, we just use the first k columns of the U matrix
 
-c. take the  first k columns of the U matrix to form U_reduce
+c. take the first k columns of the U matrix to form U_reduce for projection
 
 ```matalb
 U_reduce = U(:, 1:k);
 ```
 
 d. compute Z
+
+Project each example in X onto the top K components in U and get the new projected dataset z.
 
 ```matlab
 z = U_reduce' * x
@@ -1040,7 +1115,7 @@ Note: Mapping (U_reduce) x(i) -> z(i) should be defined by running PCA only on t
 
 - compression
   - Reduce memory/disk needed to store data
-  - speed up learning algorithm
+  - speed up learning algorithm (choose k by % of variance retain)
 - Visualization -> usually k=2 or 3
 
 **Bad use, misuse: **
@@ -1055,9 +1130,452 @@ Note: Mapping (U_reduce) x(i) -> z(i) should be defined by running PCA only on t
 
 - PCA is sometimes used when it shouldn't be 
 
-  Instead of making plan to use PCA in advance
+  Instead of making plan to use PCA in advance, before you implement  PCA, first do with the original raw data xi, and only if that doesn't do what you want, then implement PCA and consider using zi.
 
-  before you implement  PCA, first do with the original raw data xi, and only if that doesn't do what you want, then implement PCA and consider using zi.
+
+
+
+## Part VII: Anomaly Detection (Density Estimation)
+
+### A. Motivation: Anomaly Detection
+
+example: engine features
+
+new sample, is it close to the dense of the rest of examples
+
+p(x_test) < e -> flag anomaly
+
+Examples
+
+- fraud detection: 
+  - x(i) = features of user i activities
+  - model p(x) from data
+  - identify unusual user through checking p(x) < e
+- Manufacturing
+  - x(i) = features of machine i
+
+### *Gaussian (Normal) Distribution 
+
+Gaussian distribution with mean $\mu$, variance $\sigma^2$, standard deviation $\sigma$ 
+$$
+p(x; \mu, \sigma^2) = \frac{1}{\sqrt{2\pi}\sigma}\exp{(-\frac{(x-\mu)^2}{2\sigma^2})}
+$$
+
+$$
+\mu = \frac{1}{m}\sum^m_{i=1}{x^{(i)} }\\
+
+\sigma^2=\frac{1}{m}\sum^m_{i=1}({x^{(i)}-\mu)^2}
+$$
+
+### B. Algorithm
+
+1. choose features $x_i$ that might be indicative of anomalous examples
+
+2. fit parameters $\mu$ and $\sigma^2$ from i to n features
+   $$
+   \mu_j = \frac{1}{m}\sum^m_{i=1}{x_j^{(i)} }\\
+   \sigma_j^2=\frac{1}{m}\sum^m_{i=1}({x^{(i)}_j-\mu_j)^2}
+   $$
+
+3. Given new examples x, compute $p(x)$:
+   $$
+   p(x) = \prod_{j=1}^np(x_j;\mu_j,\sigma^2_j)=\prod^n_{j=1}\frac{1}{\sqrt{2\pi}\sigma_j}\exp{(-\frac{(x_j-\mu_j)^2}{2\sigma^2_j})}
+   $$
+   Anomaly if $p(x)<\varepsilon$ 
+
+### C. Development and Evaluation
+
+Real number evaluation
+
+1. Sample sets
+
+   Training set: majority normal
+
+   CV, Test:  normal mixed with anomaly (labeled data)
+
+2. Evaluation
+
+   The y will be **skewed class**, for the evaluation metrics
+
+- true positive, false positive, false negative, true negative
+- precision/recall
+- F_1- score
+
+3. Threshold choice
+
+   Can also use cross validation sets to choose $\varepsilon$
+
+### D. Anomaly Detection vs. Supervised Learning
+
+| Anomaly Detection                                            | Supervised Learning                                          |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Very small number of positive examples; large number of negative examples | large number of positive and negative examples               |
+| many different "types" of anomalies.  Hard for any algorithm to learn from positive examples what the anomalies look like; future anomalies may look nothing like existing | Enough positive examples for algorithm to get a sense of what positive examples are, as well for future ones. |
+| fraud detection; manufacturing; monitoring machines in a data center | spam; weather prediction; cancer classification              |
+
+### E. Choosing features to use
+
+**Feature data**
+
+1. plot a histogram and investigate the distribution
+
+   `hist(x)` in matlab. 
+
+2. non-gaussian features -> use different transformation to make it more gaussian
+
+**Error analysis**
+
+Want p(x) large for normal examples and small for anomalous examples
+
+- most common problem:  is when p(x) is comparable for both normal and anomalous examples. => look at the anomalous example and find new features that could distinguish
+
+**Choose features** by investigating the operations and maybe create new features from the relation
+
+### F. Multivariate Gaussian Distribution 
+
+instead of model p(x1), p(x2), ... , etc. separately
+
+Model p(x) all in one go.
+
+Parameters $\mu \in \real^n$ , $\Sigma \in \real^{n\times n}$
+$$
+p(x;\mu,\Sigma) = \frac{1}{(2\pi)^{n/2}|\Sigma|^{1/2}}\exp{(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu))}
+$$
+Parameter fitting
+$$
+\mu = \frac{1}{m}\sum^m_{i=1}{x^{(i)} }\\
+
+\Sigma=\frac{1}{m}\sum^m_{i=1}{(x^{(i)}-\mu)(x^{(i)}-\mu)^T}
+$$
+
+- Variating the covariance matrix will change the shape of density plot 
+- variation of the mu will change the location of the peak of the distribution
+
+<img src="G:\Google Drive\Coursera-Machine Learning\Note Figures\image-20201027200731129.png" alt="image-20201027200731129" style="zoom:50%;" /> <img src="G:\Google Drive\Coursera-Machine Learning\Note Figures\image-20201027200946226.png" alt="image-20201027200946226" style="zoom:50%;" />
+
+**Apply to anomaly detection**
+
+1. fit model p(x) by fitting $\mu$ and $\Sigma$
+
+2. Given a new example x, compute p(x)
+
+   Flag anomaly if $p(x) < \epsilon$
+
+**Compare to original**
+
+| Original                                                     | Multivariate                                                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| manually create feature when x1 x2 take unusual combinations of values, x3=x1/x2 | automatically capture correlations between features          |
+| Computationally cheaper (scales better to large n)           | computationally more expensive                               |
+| OK even if m (training set size) is small                    | must have m>n or else the covariant matrix is non-invertible; also with redundant feature (should be linearly independent), the covariant matric may also be non-invertible |
+
+## Part VIII: Recommender Systems
+
+> Lecture 16
+
+**Example: movie rating prediction**
+
+$n_u$ = no. of users
+
+$n_m$ = no. of movies
+
+$r(i, j) = 1$ if user j has rate the movie i
+
+$y^{(i,j)}$ = rating given by user j to movies i, (defined only if $r(i,j)=1$)
+
+### A. Content based recommendations (feature based)
+
+a. features defined as the degree of content related to a certain type
+
+$r(i, j) = 1$ if user j has rate the movie i
+
+$y^{(i,j)}$ = rating given by user j to movies i, (defined only if $r(i,j)=1$)
+
+$\theta^{(j)}$ = parameter vector for user j
+
+$x^{(i)}$ = feature vector for movie i
+
+For user j, movie i, predicted rating $(\theta^{(j)})^T(x^{(i)})$
+
+$m^{(j)}$ = no. of movies rated by user j
+
+**Optimization objective (cost function)**
+
+given $x^{(1)}, \dots, x^{(n_m)}$ to learn $\theta^{(1)}, \theta^{(2)}, \dots, \theta^{(n_u)}$ for user $1, 2, ..., n_u$
+$$
+min_{\theta^{(1)}, \dots, \theta^{(n_u)},}\frac{1}{2}\sum_{j=1}^{n_u}\sum_{i:r(i,j=1)}((\theta^{(j)})^T(x^{(i)})-y^{(i-j)})^2+\frac{\lambda}{2}\sum^{n_u}_{j=1}\sum_{k=1}^n(\theta^{(j)}_k)^2
+$$
+
+**Optimization algorithm**
+
+gradient descent update
+
+### B. Collaborative Filtering
+
+#### 1. feature learning
+
+given $\theta^{(1)}, \theta^{(1)}, \dots, \theta^{(n_u)}$, to learn $x^{(1)}, \dots, x^{(n_m)}$
+$$
+min_{x^{(1)}, \dots, x^{(n_m)}}\frac{1}{2}\sum_{i=1}^{n_m}\sum_{j:r((i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+\frac{\lambda}{2}\sum^{n_m}_{i=1}\sum^{n}_{k=1}(x_k^{(i)})^2
+$$
+
+#### 2.Collaborative filtering optimization objective
+
+minimizing $\theta^{(1)}, \theta^{(2)}, \dots, \theta^{(n_u)}$ and  $x^{(1)}, \dots, x^{(n_m)}$ simultaneously
+
+Guess theta->x->theta->x
+$$
+J(x^{(1)}, \dots, x^{(n_m)}, \theta^{(1)}, \dots, \theta^{(n_u)}) = \sum_{(i,j):r((i,j)=1}((\theta^{(j)})^Tx^{(i)}-y^{(i,j)})^2+\frac{\lambda}{2}\sum^{n_m}_{i=1}\sum^{n}_{k=1}(x_k^{(i)})^2+\frac{\lambda}{2}\sum^{n_u}_{j=1}\sum_{k=1}^n(\theta^{(j)}_k)^2 \\
+min_{x^{(1)}, \dots, x^{(n_m)}, \theta^{(1)}, \dots, \theta^{(n_u)}}J(x^{(1)}, \dots, x^{(n_m)}, theta^{(1)}, \dots, \theta^{(n_u)})
+$$
+*the intercept term x_0 and \theta_0 convention is dropped for this application (because with the feature learning, the program will learn a certain feature x_i = 1 if needed)
+
+#### 3. Collaborative Filtering algorithm
+
+a. initialize $x^{(1)}, \dots, x^{(n_m)}, \theta^{(1)}, \dots, \theta^{(n_u)}$ to small random values
+
+b. minimizing the cost function using optimization algorithm for every $j=1, ..., n_u, i=1, ..., n_m$
+
+c. for a user with parameter $\theta$ and a movie with (learned) features x, predict a star rating of $\theta^Tx$
+
+#### 4. Implementation
+
+**Vectorization implementation: Low Rank Matrix Factorization**
+$$
+X = \begin{bmatrix}
+- (x^{(1)})^T - \\
+\vdots \\
+- (x^{(n_m)})^T - 
+\end{bmatrix} 
+\Theta = \begin{bmatrix}
+- (\theta^{(1)})^T - \\
+\vdots \\
+- (\theta^{(n_u)})^T - 
+\end{bmatrix} \\
+$$
+predicted rating (low rank matrix)
+$$
+\begin{bmatrix}
+ (\theta^{(1)})^T (x^{(1)}) &  (\theta^{(1)})^T (x^{(1)}) & \dots & (\theta^{(1)})^T (x^{(1)})\\
+  (\theta^{(1)})^T (x^{(1)}) &  (\theta^{(1)})^T (x^{(1)}) & \dots & (\theta^{(1)})^T (x^{(1)})\\
+\vdots &\vdots &\vdots &\vdots  \\
+ (\theta^{(1)})^T (x^{(1)}) &  (\theta^{(1)})^T (x^{(1)}) & \dots & (\theta^{(1)})^T (x^{(1)})
+\end{bmatrix} \\
+$$
+-> Finding related movies(how similar two movies are)
+
+small $||x^{(i)}-x^{(j)}||$ => movie j is similar to movie i
+
+**Mean Normalization**
+
+from the rating matrix Y, compute the average \mu_i, and subtract the mean to get an average rating of 0 for each movie. and use the new set as the dataset
+
+![image-20201028154008532](G:\Google Drive\Coursera-Machine Learning\Note Figures\image-20201028154008532.png)
+
+prediction for user j, on movie i
+$$
+(\theta^{(j)})^T(x^{(i)})+\mu_i
+$$
+
+## Part E: Large scale machine learning
+
+> Lecture 17
+
+### A. Learning with large dataset, => sanity check
+
+training with a small fraction of the dataset as a sanity check.
+
+plotting the learning curve to find that if it shows a high variance learning algorithm and increasing the dataset will help
+
+Instead, if the learning curve show high bias, instead of enlarging the dataset, might try the method of adding features etc. 
+
+### B. Stochastic gradient descent
+
+**Batch gradient descent** -> looking at all of the training examples m in each iteration
+
+**stochastic gradient descent** (look at 1 example in each iteration)
+
+#### 1. cost function
+
+$$
+cost(\theta, (x^{(i)},y^{(i)})) = \frac{1}{2}(h_{\theta}(x^{(i)})-y^{(i)})^2\\
+J_{train}(\theta)=\frac{1}{m}\sum^m_{i=1}cost(\theta, (x^{(i)},y^{(i)}))
+$$
+#### 2. algorithm
+
+```matlab
+## a. randomly shuffle dataset
+
+## b. sample-wise gradient descent
+repeat {
+  for i = 1, ...m {
+      theta_j = theta_j - alpha\*(h_theta(x(i))-y(i))*x(i,j))
+              (for every j=0,...,n)
+    }
+}
+```
+
+when the new sample come in, it will progressively make parameter towards global minimum
+
+**advantage**
+
+faster (and safer) than batch gradient descent
+
+#### 3. Stochastic gradient descent convergence
+
+1. learning curve
+
+during learning, compute the cost of example before updating theta using (x(i), y(i))
+
+Every 1000 iterations, plot cost averaged over las 1000 examples processed by the algorithm.
+
+2. learning rate alpha
+
+learning rate is typically held constant, can slowly decrease alpha over time if we want theta to converge. (eg. alpha = const1/(iterationNumber + const2))
+
+### C. Mini-Batch Gradient descent
+
+Use b examples in each iteration
+
+**algorithm**
+
+```matlab
+# Say b=10, m= 1000
+
+Repeat{
+
+      for i = 1, 11, 21, 31, ..., 991{
+      theta_j = theta_j - alpha\*1/b\*sum(h_theta(x(k))-y(k))*x(j,k)
+          (for every j = 0, ..., n)
+
+}
+
+}
+```
+
+**advantage**
+
+mini-batch gradient descent can be sometime faster than stochastic gradient descent. The reason is vectorization which will allow for partial parallelization over the b examples.
+
+**disadvantage**
+
+additional parameter of b
+
+### D. Online Learning
+
+learn from a continuous stream of data
+
+**Example: shipping service**
+
+choose your service (y=1)
+
+feature x capture propertied of use,want to learn $p(y=1|x;\theta)$ to optimize price
+
+algorithm
+
+```matlab
+# logistic regression
+repeat forever {
+
+   get (x, y ) corresponding to user
+
+   update theta using (x, y) # not (x(i),y(i)) as in fixed training set
+
+   theta(j) = theta(j) - alpha*(h(x)-y)*x(j)   (j=0,...,n)
+
+}
+```
+
+* there is no longer a fixed training set. Instead, we learn from an example and then discard the example and never look again.
+
+- this can also adapt to a changing user preferences over time 
+
+**Example: product search (learning to search)**
+
+user searches for "Android phone 1080p camera"
+
+return 10 results among the 100
+
+x = feature of phone, user query match etc
+
+y= 1 if user click on link
+
+learn $p(y=1|x;\theta)$   (predicted click-through-rate CTR)
+
+use this to show the user 10 phones they are most likely to click on
+
+- recommendations
+
+### E. Map Reduce and data parallelism
+
+Batch gradient descent, eg. 400 examples
+
+split the training set in to n sets (evenly) -> compute -> combine results
+
+Machine 1: use example 1~100
+$$
+temp_j^{(1)} = \sum^{100}_j(h_\theta(x^{(i)})-y^{(i)})*x_j^{(i)}
+$$
+....  four machines
+
+Combine:
+$$
+\theta_j = \theta_j-\alpha*\frac{1}{400}(temp^{(1)}_j+temp^{(2)}_j+temp^{(3)}_j+temp^{(4)}_j)
+$$
+
+- also dependent on can your algorithms can be expressed as computing sums of functions over the training set (many learning algorithms can)
+
+## Part F: Example of photo OCR (optical character recognition)
+
+### A. Problem, Pipeline
+
+pipeline
+
+1. text detection
+2. character segmentation
+3. character classification
+
+### B. Sliding Window
+
+-> for text detection and character segmentation
+
+Take the image patch (with expected aspect ratio)
+
+run classifier
+
+slide the patch by a certain step-size/stride
+
+run classifier
+
+...
+
+take a larger image patch and repeat sliding and classification
+
+**1D sliding window for character segmentation**
+
+label the midpoint between two characters as positive (y=1)
+
+train a classifier for split using this dataset
+
+### C. Getting lots of data and artificial data
+
+- Synthesizing data by introducing distortions. (eg. artificial warping to figure, adding noisy backgrounds to audio) Should be representative to the type you want to recognize. 
+- Usually does not help to add purely random/meaningless noise
+- make sure is low-bias (thus more data will help) before putting in the effort
+
+### D. Ceiling analysis: what part of the pipeline to work on next
+
+- estimate the errors due to each component
+- give the upstream 100% accurate data and run through the pipeline and give the new accuracy of the following part of the pipeline
+
+| component                   | accuracy |
+| --------------------------- | -------- |
+| Overall                     | 72%      |
+| 100% text detection         | 89%      |
+| 100% character segmentation | 90%      |
+| 100% character recognition  | 100%     |
+
+> from the table, spend more time on improving text detection will potential have an accuracy increase of 17%
 
 ## Personal side note
 

@@ -1,0 +1,79 @@
+{
+  "main": {
+    "id": "4570ae4403016c30",
+    "type": "split",
+    "children": [
+      {
+        "id": "36358437bea8dd1e",
+        "type": "leaf",
+        "active": true,
+        "state": {
+          "type": "graph",
+          "state": {}
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "616742e0268e1886",
+    "type": "split",
+    "children": [
+      {
+        "id": "d18b2deff024456f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5bdd05300c29f6e2",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "7b7ea21896323524",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": ""
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "2ed850f8814f3778",
+    "type": "split",
+    "children": [
+      {
+        "id": "979158b64225a6aa",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9704be8e4f1504ee",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "lastOpenFiles": [
+    "Lecture2-One Variable Linear Regression.pdf",
+    "Machine Learning - Coursera.md",
+    "octave-matlab.md",
+    "Lecture6-Logistic Regression and Classfication.pdf"
+  ]
+}

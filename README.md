@@ -160,3 +160,30 @@ ex7_companion.mlx
 
 - Lecture 13
 - Lecture 14
+
+
+
+### ex8: Anomaly Detection and Recommender System
+
+ex8.mlx
+
+**Anomaly Detection**
+
+- Gaussian distribution parameters, sigma^2 and mu
+- compute the probability density function from the parameters
+- choose the threshold based on cross-validation set
+
+**Recommender System**
+
+- collaborative filtering
+- compute cost function (accumulate cost only when user have given the rating, eg R(i,j) = 1)
+- compute the gradient of the cost function w.r.t. Theta and X
+- apply regularization
+- perform optimization and predict rating for recommendation
+
+
+
+**Lecture Note**
+
+- Lecture 15
+- Lecture 16

@@ -36,7 +36,7 @@ X = [ones(m, 1) X];
 % probability for ith example in jth class
 
 % M = max(X,[],DIM) or [M,I] = max(X,[],DIM) operates along the 
-% dimension DIM.
+% dimension DIM, returning the index of the max element.
 
 
 % =========================================================================
